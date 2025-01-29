@@ -1,7 +1,8 @@
-; this the binary function that takes $f a function and (($x $y $z) $c)a list and a constant 
-(= (func $f (($x $y $z) $c))  
-   (($f $x $c) ($f $z $c) ($f $y $c))) ;this line applies the function f to each element of the lsit
+(= (func $f $c()) ()) ;If the input list is empty, return an empty list.
+;takes a function `$f` a constant `$c` and a list `(:: $x $xs)`
+(= (func $f $c (:: $x $xs))
+   (:: ($f $x $c) (func $f $c $xs))) ;Applies `$f` to the first element of the list and Recursively processes the rest of the list $xs
 
-(= (addTwo $x $c)((+ $x $c))) 
+(= (addTwo $x $c) (+ $c $x)) ;Returns the sum of $x and $c
 
-! (func addTwo ((1 2 3) 10))
+! (func addTwo 10 (:: 1 (:: 2 (:: 3 ()))))
